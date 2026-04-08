@@ -1,16 +1,12 @@
 /**
- * Asset path helper for GitHub Pages subpath deployment.
+ * Asset path helper.
  *
- * In GitHub Actions, NEXT_PUBLIC_BASE_PATH is set to "/kinyoubi".
- * Locally or on Vercel, it's empty — assets load from root.
- *
- * Usage: asset('/logos/logo-transparent.svg') → '/kinyoubi/logos/logo-transparent.svg'
+ * With the repo renamed to kinyoubi-atelier.github.io, GitHub Pages
+ * serves from root — no subpath prefix needed. This helper is kept
+ * as a no-op so existing imports don't break, and it'll be useful
+ * again if you ever need a CDN prefix on Vercel.
  */
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-
 export function asset(path: string): string {
-  return `${basePath}${path}`
+  return path
 }
-
-export { basePath }

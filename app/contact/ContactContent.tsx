@@ -15,10 +15,15 @@ import { SITE } from '@/lib/constants'
  * 2. Web3Forms: Set NEXT_PUBLIC_WEB3FORMS_KEY in .env.local
  *    Sign up at https://web3forms.com — 250 submissions/month free
  * 3. Fallback: Shows success state without backend (current behavior)
+ *
+ * Data collection (runs in parallel, independent of form backend):
+ * - Google Sheets: Set NEXT_PUBLIC_GOOGLE_SHEETS_URL in .env.local
+ *   See GOOGLE-SHEETS-SETUP.md for Apps Script webhook setup
  */
 
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID
 const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
+const GOOGLE_SHEETS_URL = process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL
 
 type ProjectType = '' | 'software' | 'consulting' | 'ai-workflow' | 'research' | 'other'
 
@@ -37,8 +42,8 @@ export default function ContactContent() {
     const formData = new FormData(form)
 
     try {
+      // ─── Form Backend (picks the first configured one) ───
       if (FORMSPREE_ID) {
-        // Formspree integration
         const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: 'POST',
           body: formData,
@@ -46,7 +51,6 @@ export default function ContactContent() {
         })
         if (!res.ok) throw new Error('Failed to submit')
       } else if (WEB3FORMS_KEY) {
-        // Web3Forms integration
         formData.append('access_key', WEB3FORMS_KEY)
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -56,6 +60,22 @@ export default function ContactContent() {
       } else {
         // Fallback: simulate submission
         await new Promise(resolve => setTimeout(resolve, 500))
+      }
+
+      // ─── Google Sheets logging (fire-and-forget, never blocks UX) ───
+      if (GOOGLE_SHEETS_URL) {
+        const sheetData: Record<string, string> = {}
+        formData.forEach((value, key) => {
+          if (key !== 'access_key') sheetData[key] = value.toString()
+        })
+        fetch(GOOGLE_SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sheetData),
+        }).catch(() => {
+          // Silent fail — sheet logging is best-effort
+        })
       }
 
       setSubmitted(true)
