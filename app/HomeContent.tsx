@@ -20,6 +20,7 @@ import { BrushStrokeDivider } from '@/components/ui/BrushStrokeDivider'
 import { BrandLockup } from '@/components/ui/BrandLockup'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { Testimonials } from '@/components/ui/Testimonials'
+import { TechStack } from '@/components/ui/TechStack'
 import { SITE } from '@/lib/constants'
 
 /* ─── Data ─── */
@@ -45,10 +46,6 @@ const services = [
   },
 ]
 
-const techStack = [
-  'Next.js', 'React', 'TypeScript', 'Node.js', 'Python',
-  'Tailwind CSS', 'PostgreSQL', 'Vercel', 'AWS',
-]
 
 const processSteps = [
   {
@@ -232,22 +229,9 @@ export default function HomeContent() {
       </section>
 
       {/* ──────────────────────────────────────────────
-          SECTION 2: Tech Stack Marquee
+          SECTION 2: Tech Stack
       ────────────────────────────────────────────── */}
-      <section className="py-12 border-y border-text-primary/5 bg-background-alt overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <p className="text-xs font-medium text-text-tertiary uppercase tracking-widest text-center mb-6">
-            Technologies we work with
-          </p>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
-            {techStack.map((tech) => (
-              <span key={tech} className="text-sm md:text-base font-medium text-text-secondary/70 hover:text-gold transition-colors cursor-default">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TechStack />
 
       {/* ──────────────────────────────────────────────
           SECTION 3: Services
