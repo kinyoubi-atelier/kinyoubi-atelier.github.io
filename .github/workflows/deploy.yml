@@ -39,6 +39,7 @@ jobs:
       - name: Build static site
         run: npm run build
         env:
+          NEXT_PUBLIC_BASE_PATH: /kinyoubi
           # Add your env vars as GitHub Secrets if needed:
           # NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
           # NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.CRISP_WEBSITE_ID }}
