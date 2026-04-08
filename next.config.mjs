@@ -1,24 +1,26 @@
 /** @type {import('next').NextConfig} */
+
+// GitHub Pages deploys to a subpath: /kinyoubi/
+// When you move to Vercel with a custom domain, remove basePath and assetPrefix.
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
+const repoName = 'kinyoubi'
+
 const nextConfig = {
   // ─── Static Export ───
-  // Generates a fully static site in /out that can be hosted anywhere:
-  // GitHub Pages, Vercel, Netlify, S3, or any CDN.
   output: 'export',
 
+  // ─── Base Path (GitHub Pages subpath) ───
+  // Remove these two lines when switching to Vercel / custom domain
+  basePath: isGitHubPages ? `/${repoName}` : '',
+  assetPrefix: isGitHubPages ? `/${repoName}/` : '',
+
   // ─── Images ───
-  // Static export can't use Next.js image optimization server.
-  // Images are served as-is (still use modern formats via source files).
   images: {
     unoptimized: true,
   },
 
   // ─── Trailing Slashes ───
-  // GitHub Pages expects /about/index.html, not /about.html
   trailingSlash: true,
-
-  // Note: Security headers (X-Frame-Options, etc.) are now handled by
-  // the hosting platform. For Vercel, see vercel.json. For GitHub Pages,
-  // these are set via the _headers file or Cloudflare.
 }
 
 export default nextConfig
