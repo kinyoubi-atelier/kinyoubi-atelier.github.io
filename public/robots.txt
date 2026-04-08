@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kinyoubi.com/sitemap.xml

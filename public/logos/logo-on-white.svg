@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Noto+Serif+JP:wght@500&display=swap');
+      .kanji {
+        font-family: 'Noto Serif JP', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+        font-size: 240px;
+        font-weight: 500;
+        letter-spacing: -8px;
+      }
+      .latin {
+        font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+        font-size: 132px;
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -2px;
+      }
+    ]]></style>
+  </defs>
+
+  <!-- Background fill (set to fg/bg as needed) -->
+  <rect width="800" height="560" fill="#ffffff"/>
+
+  <!-- 金曜日 -->
+  <text
+    x="400"
+    y="290"
+    text-anchor="middle"
+    class="kanji"
+    fill="#142850"
+  >金曜日</text>
+
+  <!-- Atelier -->
+  <text
+    x="400"
+    y="430"
+    text-anchor="middle"
+    class="latin"
+    fill="#a08535"
+  >Atelier</text>
+</svg>

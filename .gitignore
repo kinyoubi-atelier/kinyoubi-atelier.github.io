@@ -1,0 +1,34 @@
+# ─── Dependencies ───
+node_modules/
+
+# ─── Build output ───
+.next/
+out/
+
+# ─── Environment variables (secrets!) ───
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# ─── OS junk ───
+.DS_Store
+Thumbs.db
+
+# ─── Editor ───
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Debug ───
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Vercel ───
+.vercel/
+
+# ─── TypeScript ───
+*.tsbuildinfo
+next-env.d.ts

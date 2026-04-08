@@ -1,0 +1,12 @@
+<svg viewBox="0 0 800 28" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="taperGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6B3E2E;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#6B3E2E;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6B3E2E;stop-opacity:0.4" />
+      <stop offset="75%" style="stop-color:#6B3E2E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B3E2E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M 15 10 Q 180 6 320 15 Q 450 18 600 12 Q 720 8 785 14" fill="none" stroke="url(#taperGrad3)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

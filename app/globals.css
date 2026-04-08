@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text-primary antialiased font-sans;
+  }
+
+  /* Heading hierarchy */
+  h1, h2, h3 {
+    @apply font-heading tracking-tight text-text-primary;
+  }
+
+  h4, h5, h6 {
+    @apply font-sans font-medium text-text-secondary;
+  }
+
+  /* Body text uses sans-serif */
+  p, li, blockquote {
+    @apply font-sans text-base leading-relaxed text-text-primary;
+  }
+
+  /* Selection highlight — subtle gold tint */
+  ::selection {
+    background-color: rgba(160, 133, 53, 0.15);
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+
+  /* Smooth scrolling */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Brand gradient text — gold → navy (for light backgrounds) */
+  .brand-gradient-light {
+    background-image: linear-gradient(
+      135deg,
+      #a08535 0%,
+      #D4AF61 35%,
+      #a08535 55%,
+      #142850 100%
+    );
+  }
+
+  /* Brand gradient text — gold → cream (for dark backgrounds) */
+  .brand-gradient-dark {
+    background-image: linear-gradient(
+      135deg,
+      #D4AF61 0%,
+      #a08535 40%,
+      #D4AF61 65%,
+      #F0EEEA 100%
+    );
+  }
+}

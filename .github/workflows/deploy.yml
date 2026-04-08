@@ -1,0 +1,63 @@
+# ──────────────────────────────────────────────
+# Deploy Kinyoubi Website to GitHub Pages
+# ──────────────────────────────────────────────
+# Triggers on every push to main.
+# Builds the Next.js static export and deploys to GitHub Pages.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+        env:
+          # Add your env vars as GitHub Secrets if needed:
+          # NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+          # NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.CRISP_WEBSITE_ID }}
+          # NEXT_PUBLIC_CAL_USERNAME: ${{ secrets.CAL_USERNAME }}
+          # NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.FORMSPREE_ID }}
+          NODE_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
