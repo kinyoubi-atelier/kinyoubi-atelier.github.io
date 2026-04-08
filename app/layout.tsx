@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     title: SITE.name,
     description: SITE.description,
   },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
   metadataBase: new URL(SITE.url),
 }
 
