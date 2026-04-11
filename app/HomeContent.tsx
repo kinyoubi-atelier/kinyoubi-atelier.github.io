@@ -224,11 +224,20 @@ export default function HomeContent() {
 
         {/* Scroll indicator */}
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+          className="absolute bottom-10 flex flex-col items-center gap-2"
         >
-          <ArrowDown className="h-5 w-5 text-text-tertiary" />
+          <span className="text-[10px] font-sans tracking-[0.2em] uppercase text-text-tertiary select-none">
+            Scroll to explore
+          </span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ArrowDown className="h-4 w-4 text-gold/40" />
+          </motion.div>
         </motion.div>
       </section>
 
@@ -493,31 +502,184 @@ export default function HomeContent() {
       </section>
 
       {/* ──────────────────────────────────────────────
-          SECTION 9: Future Work / Portfolio Teaser
+          SECTION 9: Portfolio / Built with Care
       ────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 px-6 md:px-12">
+      <section id="built-with-care" className="scroll-mt-24 py-24 md:py-32 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mb-14"
+            className="mb-14"
           >
             <p className="text-sm font-medium text-gold uppercase tracking-widest mb-3">Built with care</p>
             <h2 className="font-heading text-display-sm md:text-display text-text-primary tracking-tight">
               The proof is in the work
             </h2>
-            <p className="text-text-secondary mt-4 max-w-lg mx-auto">
-              This website is itself a demonstration of what we build — modern, fast, accessible, and designed to convert.
+            <p className="text-text-secondary mt-4 max-w-xl">
+              A small, growing portfolio — from live client sites to the one you're reading now.
             </p>
           </motion.div>
 
-          {/* Feature cards showcasing the site itself */}
+          {/*
+            ── Featured project: Roobaroo ──
+            Temporary minimal card. Previous copy on this block described
+            Roobaroo as a "multi-tenant school management system" with
+            fabricated portal roles, institutions and AWS Amplify tags.
+            That was wrong — Roobaroo is a restaurant website. Until the
+            real case study copy is written with the founder, we render a
+            restrained stub that only states verifiable facts: it's a
+            live client project and here is the link.
+          */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-6"
+          >
+            <a
+              href="https://roobaroo.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+            >
+              <div className="rounded-card border border-text-primary/5 hover:border-gold/25 bg-background-alt transition-colors duration-300 p-8 md:p-12">
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-lg bg-navy flex items-center justify-center flex-shrink-0">
+                    <span className="text-gold-bright font-heading text-sm font-semibold">R</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-text-tertiary uppercase tracking-widest mb-0.5">Client project</p>
+                    <h3 className="text-xl font-semibold text-text-primary">Roobaroo</h3>
+                  </div>
+                  <span className="text-sm font-medium text-gold group-hover:underline inline-flex items-center gap-1.5 flex-shrink-0">
+                    View live site
+                    <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </motion.div>
+
+          {/*
+            ── Featured project: Archive automation ──
+            Python pipeline for an LPG distributorship — reconciled ~4,000
+            scanned KYC records against an Excel master, normalised 116
+            fuzzy-duplicate locality names, and published the result to
+            Google Drive with clickable hyperlinks back into the sheet.
+            Client name omitted under DPDPA 2023 confidentiality; all
+            metrics and stack details come from Ankit's own write-up.
+          */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <a href="/work/archive-automation" className="group block">
+              <div className="rounded-card border border-text-primary/5 hover:border-gold/25 bg-background-alt transition-colors duration-300 p-8 md:p-12">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="h-10 w-10 rounded-lg bg-navy flex items-center justify-center flex-shrink-0">
+                    <span className="text-gold-bright font-heading text-sm font-semibold">A</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-text-tertiary uppercase tracking-widest mb-0.5">Client project · Operations automation</p>
+                    <h3 className="text-xl font-semibold text-text-primary mb-2">Rebuilding a 4,000-record consumer archive</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      A Python pipeline for an LPG distributorship: reconcile a decade of scanned KYC records against a fragmented spreadsheet, normalise fuzzy-duplicate locality names, and hand back an archive staff could actually navigate.
+                    </p>
+                  </div>
+                  <span className="text-sm font-medium text-gold group-hover:underline inline-flex items-center gap-1.5 flex-shrink-0">
+                    Read case study
+                    <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+
+                {/* Metric strip — all numbers from Ankit's verified write-up */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-text-primary/5">
+                  {[
+                    { num: '3,905', label: 'Records reconciled' },
+                    { num: '796', label: 'Folders generated' },
+                    { num: '116', label: 'Fuzzy duplicates merged' },
+                    { num: '~14 hrs', label: 'Manual work replaced' },
+                  ].map((m) => (
+                    <div key={m.label}>
+                      <div className="font-heading text-2xl text-gold mb-1 tracking-tight">{m.num}</div>
+                      <div className="text-[11px] text-text-tertiary uppercase tracking-widest leading-tight">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </a>
+          </motion.div>
+
+          {/*
+            BFSI MIS case study — regulated financial institution engagement.
+            All specific client identifiers are redacted under confidentiality
+            obligations. Content is load-bearing on Ankit's signed founder
+            attestation on the case study page itself.
+          */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <a href="/work/bfsi-mis" className="group block">
+              <div className="rounded-card border border-text-primary/5 hover:border-gold/25 bg-background-alt transition-colors duration-300 p-8 md:p-12">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="h-10 w-10 rounded-lg bg-navy flex items-center justify-center flex-shrink-0">
+                    <span className="text-gold-bright font-heading text-sm font-semibold">M</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-text-tertiary uppercase tracking-widest mb-0.5">Client project · BFSI · Regulated SaaS</p>
+                    <h3 className="text-xl font-semibold text-text-primary mb-2">Compliance-first MIS platform for a regulated financial institution</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      A multi-site Management Information System engineered from day one for RBI alignment and DPDP Act readiness — secure data foundation, offline-first capture, and an AI-assisted insight layer, all hosted in-region.
+                    </p>
+                  </div>
+                  <span className="text-sm font-medium text-gold group-hover:underline inline-flex items-center gap-1.5 flex-shrink-0">
+                    Read case study
+                    <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+
+                {/* Stack chips in place of metrics — this phase is foundation work, no KPIs published */}
+                <div className="flex flex-wrap gap-2 pt-6 border-t border-text-primary/5">
+                  {[
+                    'Flutter',
+                    'AWS ap-south-1 · Mumbai',
+                    'PostgreSQL (FLE + RLS)',
+                    'Amazon Bedrock',
+                    'Cognito + MFA',
+                  ].map((chip) => (
+                    <span
+                      key={chip}
+                      className="text-[11px] uppercase tracking-widest text-text-secondary bg-background border border-text-primary/10 rounded-full px-3 py-1.5"
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          </motion.div>
+
+          {/* ── This site's performance cards ── */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { metric: '95+', label: 'Lighthouse score', detail: 'Performance, accessibility, SEO' },
-              { metric: '<2.5s', label: 'Largest contentful paint', detail: 'Optimized fonts, lazy loading' },
+              { metric: '<2.5s', label: 'Largest contentful paint', detail: 'Optimised fonts, lazy loading' },
               { metric: '0', label: 'Layout shift', detail: 'Stable, predictable rendering' },
             ].map((card, i) => (
               <motion.div
@@ -531,6 +693,7 @@ export default function HomeContent() {
                   <div className="text-3xl md:text-4xl font-heading text-gold mb-2">{card.metric}</div>
                   <div className="text-sm font-semibold text-text-primary mb-1">{card.label}</div>
                   <div className="text-xs text-text-tertiary">{card.detail}</div>
+                  <div className="text-[10px] text-text-tertiary/60 mt-2 uppercase tracking-widest">This site</div>
                 </Card>
               </motion.div>
             ))}
