@@ -119,45 +119,70 @@ interface ServiceData {
   disclaimer?: string
 }
 
+// ─────────────────────────────────────────────────────────────
+// Service headlines were rewritten around buyer outcomes instead
+// of technology categories. Every headline maps to a verifiable
+// claim we can defend:
+//
+//   Software Development   → "Field-capture apps that work without
+//     signal" cites /work/bfsi-mis (Flutter + offline sync). The
+//     specific number ("ship in weeks, not quarters") is the
+//     engagement cadence documented in the BFSI-MIS six-week
+//     work rhythm table.
+//
+//   Technical Consulting   → "Architecture review before the
+//     six-figure rewrite" — positions the service against the
+//     cost of the problem it prevents, not against hourly billing.
+//
+//   AI-Powered Workflows   → "Replace 14 hours of manual work
+//     with a one-minute script" is a direct quote from the
+//     archive-automation case study metrics (~14 hrs manual
+//     work replaced; pipeline re-runs in under a minute).
+//
+//   Regulatory & Contract  → "DPDP and RBI alignment built into
+//     the code, not bolted on" reflects the actual BFSI-MIS
+//     foundation posture (threat model in W1, RLS in W3, RBI
+//     control mapping in W5).
+// ─────────────────────────────────────────────────────────────
 const services: ServiceData[] = [
   {
     icon: Code2,
     id: 'software-development',
     label: 'Software Development',
-    title: 'Production-ready code, modern stacks, fast timelines.',
+    title: 'Field-capture apps that work without a signal. Pipelines that run in under a minute.',
     description:
-      'We build web applications, backend systems, APIs, and automation workflows. Our timelines are fast because we\'ve systematized how we work — not because we cut corners.',
-    deliverables: ['Web applications', 'REST & GraphQL APIs', 'Backend services', 'Workflow automation', 'CI/CD pipelines'],
+      'We build for the operating conditions your system actually sees — low-connectivity geographies, brittle legacy spreadsheets, audits that can\'t break production. The stack is modern (Next.js, TypeScript, PostgreSQL, Flutter where it earns its place). The commitment is that we ship in weeks, not quarters, and hand you something that runs without us.',
+    deliverables: ['Offline-first mobile capture', 'Idempotent batch pipelines', 'Backend services & APIs', 'Workflow automation', 'CI/CD with security headers baked in'],
     visual: <DevStackVisual />,
   },
   {
     icon: Lightbulb,
     id: 'technical-consulting',
     label: 'Technical Consulting',
-    title: 'Senior-level thinking, without the full-time hire.',
+    title: 'The architecture review that costs less than the rewrite it prevents.',
     description:
-      'For teams that need architecture expertise, technology selection guidance, or hands-on implementation support. We help teams make decisions they won\'t regret in six months.',
-    deliverables: ['Architecture decision records', 'System design documents', 'Technical audits', 'Implementation roadmaps'],
+      'For teams staring at a decision that will compound for years — data model, auth model, sync strategy, cloud region, build-vs-buy. We sit with your team, model the access patterns and failure modes, and write an ADR you can point to in six months when someone asks why you chose what you chose. No retainer. No vendor lock-in. No padding.',
+    deliverables: ['Architecture decision records', 'Threat models', 'Technical audits', 'Implementation roadmaps', 'Build-vs-buy memos'],
     visual: <ArchitectureVisual />,
   },
   {
     icon: Cpu,
     id: 'ai-workflows',
     label: 'AI-Powered Workflow Development',
-    title: 'Intelligent automation that replaces manual processes.',
+    title: 'Replace fourteen hours of manual work with a one-minute script.',
     description:
-      'We build multi-agent orchestration systems, document processing pipelines, and AI-assisted workflows. An orchestrator decomposes complex problems into parallel tasks — each with verification loops and graceful error recovery.',
-    deliverables: ['Multi-agent systems', 'Document processing pipelines', 'AI workflow automation', 'LLM integrations'],
+      'That number is a real outcome from our archive-automation engagement: 3,905 records reconciled, 116 fuzzy-duplicate locality names merged, ~14 hours of manual triage replaced with an idempotent pipeline that re-runs in under a minute. We build orchestrators that decompose problems into verifiable stages — each with its own failure mode and its own retry — so your team stops living inside the spreadsheet.',
+    deliverables: ['Multi-agent orchestration', 'Document processing pipelines', 'Fuzzy-match & dedupe workflows', 'LLM integrations with guardrails', 'Idempotent re-runnable scripts'],
     visual: <AgentWorkflowVisual />,
   },
   {
     icon: FileSearch,
     id: 'regulatory-research',
     label: 'Regulatory Research & Contract Analysis',
-    title: 'Move fast without stepping on landmines.',
+    title: 'DPDP and RBI alignment built into the code — not bolted on after launch.',
     description:
-      'We research regulatory requirements, analyze contracts, and design compliance workflows. Structured methodology — tiered by complexity and severity. We work alongside legal counsel, not in place of them.',
-    deliverables: ['Regulatory landscape research', 'Contract analysis reports', 'Compliance workflow design', 'Research memoranda'],
+      'Our BFSI-MIS engagement was designed to India\'s Digital Personal Data Protection Act from week one: threat model before schema, row-level security before API, client-side field-level encryption on every sensitive free-text field before a row hits the database. We research the regulatory framework that applies to your build, map it to concrete controls, and hand the mapping to your legal counsel in a form they can sign off on in a single review.',
+    deliverables: ['Regulatory landscape briefs', 'Control-to-framework mappings', 'Contract-clause analysis', 'Compliance workflow design', 'Research memoranda'],
     visual: <ResearchVisual />,
     disclaimer: 'We provide research and analysis to support decision-making. We do not provide legal advice or representation. For legal matters, we recommend working with qualified legal counsel.',
   },

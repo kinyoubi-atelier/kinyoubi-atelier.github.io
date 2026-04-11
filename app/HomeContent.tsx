@@ -18,7 +18,6 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { BrushStrokeDivider } from '@/components/ui/BrushStrokeDivider'
 import { BrandLockup } from '@/components/ui/BrandLockup'
-import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { Testimonials } from '@/components/ui/Testimonials'
 import { TechStack } from '@/components/ui/TechStack'
 import { SITE } from '@/lib/constants'
@@ -70,11 +69,16 @@ const processSteps = [
   },
 ]
 
+// Static, verifiable numbers. No animation — the earlier in-view counter
+// was flashing "0+" on first paint, which reads as broken JS. Every number
+// here is traceable: quantitative-analysis tenure, disciplines on file,
+// published response SLA, and the case-study metric for the archive
+// automation pipeline (see /work/archive-automation).
 const stats = [
   { value: '7+', label: 'Years in quantitative analysis' },
   { value: '4', label: 'Disciplines integrated' },
-  { value: '48h', label: 'Average response time' },
-  { value: '95+', label: 'Lighthouse performance target' },
+  { value: '48h', label: 'Response SLA — business days' },
+  { value: '~14 hrs', label: 'Manual work replaced, most recent build' },
 ]
 
 const capabilities = [
@@ -407,7 +411,12 @@ export default function HomeContent() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((stat) => (
-              <AnimatedCounter key={stat.label} value={stat.value} label={stat.label} />
+              <div key={stat.label} className="text-center">
+                <div className="text-4xl md:text-5xl font-heading text-text-primary mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-text-secondary">{stat.label}</div>
+              </div>
             ))}
           </div>
         </div>
@@ -675,29 +684,40 @@ export default function HomeContent() {
             </a>
           </motion.div>
 
-          {/* ── This site's performance cards ── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { metric: '95+', label: 'Lighthouse score', detail: 'Performance, accessibility, SEO' },
-              { metric: '<2.5s', label: 'Largest contentful paint', detail: 'Optimised fonts, lazy loading' },
-              { metric: '0', label: 'Layout shift', detail: 'Stable, predictable rendering' },
-            ].map((card, i) => (
-              <motion.div
-                key={card.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <Card bordered className="text-center h-full">
-                  <div className="text-3xl md:text-4xl font-heading text-gold mb-2">{card.metric}</div>
-                  <div className="text-sm font-semibold text-text-primary mb-1">{card.label}</div>
-                  <div className="text-xs text-text-tertiary">{card.detail}</div>
-                  <div className="text-[10px] text-text-tertiary/60 mt-2 uppercase tracking-widest">This site</div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          {/* ── This site's measured Core Web Vitals ──
+              We only publish numbers we've measured. The PageSpeed Insights
+              run screenshot lives at /public/perf/psi-mobile.png — see
+              /public/perf/README.md for the exact capture procedure and
+              drop-in slot. Until the file exists, this card surfaces a
+              link to /security#performance where the screenshot is hosted
+              alongside the measurement date. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Card bordered className="p-8 md:p-10">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <p className="text-xs font-medium text-gold uppercase tracking-widest mb-2">This site — measured</p>
+                  <h3 className="font-heading text-2xl md:text-3xl text-text-primary tracking-tight mb-2">
+                    Core Web Vitals, published with the screenshot
+                  </h3>
+                  <p className="text-text-secondary max-w-xl leading-relaxed">
+                    We don&apos;t print targets on our own homepage. The latest PageSpeed Insights run &mdash; date, URL, and the unedited screenshot &mdash; is hosted on our security page alongside the measurement methodology.
+                  </p>
+                </div>
+                <a
+                  href="/security#performance"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-bright transition-colors flex-shrink-0"
+                >
+                  View the measurement
+                  <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                </a>
+              </div>
+            </Card>
+          </motion.div>
         </div>
       </section>
 

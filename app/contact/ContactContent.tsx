@@ -14,7 +14,10 @@ import { SITE } from '@/lib/constants'
  *    Sign up at https://formspree.io — 50 submissions/month free
  * 2. Web3Forms: Set NEXT_PUBLIC_WEB3FORMS_KEY in .env.local
  *    Sign up at https://web3forms.com — 250 submissions/month free
- * 3. Fallback: Shows success state without backend (current behavior)
+ *
+ * If neither is configured the form refuses to submit and surfaces an error
+ * pointing the visitor at the direct email address. We never show a fake
+ * "Message received" success state.
  *
  * Data collection (runs in parallel, independent of form backend):
  * - Google Sheets: Set NEXT_PUBLIC_GOOGLE_SHEETS_URL in .env.local
@@ -43,6 +46,8 @@ export default function ContactContent() {
 
     try {
       // ─── Form Backend (picks the first configured one) ───
+      // No silent fallback: if no backend is configured we surface an error so
+      // visitors never see a fake "Message received" success state.
       if (FORMSPREE_ID) {
         const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: 'POST',
@@ -58,8 +63,14 @@ export default function ContactContent() {
         })
         if (!res.ok) throw new Error('Failed to submit')
       } else {
-        // Fallback: simulate submission
-        await new Promise(resolve => setTimeout(resolve, 500))
+        // No backend configured — refuse to pretend it worked.
+        if (process.env.NODE_ENV !== 'production') {
+          // eslint-disable-next-line no-console
+          console.error(
+            '[ContactForm] No form backend configured. Set NEXT_PUBLIC_FORMSPREE_ID or NEXT_PUBLIC_WEB3FORMS_KEY in .env.local.'
+          )
+        }
+        throw new Error('Form backend not configured')
       }
 
       // ─── Google Sheets logging (fire-and-forget, never blocks UX) ───
@@ -320,8 +331,14 @@ export default function ContactContent() {
                     </a>
                   </div>
                   <div>
-                    <p className="text-sm text-text-tertiary mb-1">Location</p>
-                    <p className="text-lg text-text-primary">{SITE.location}</p>
+                    <p className="text-sm text-text-tertiary mb-1">Registered office</p>
+                    {/* Full address disclosed here only — the rest of the
+                        site reads SITE.location from lib/constants.ts and
+                        renders "Remote-first · Serving North America & EMEA".
+                        This is the one surface where the registered address
+                        belongs, for contract and invoicing purposes. */}
+                    <p className="text-lg text-text-primary">Jeypore, Koraput District, Odisha, India</p>
+                    <p className="text-sm text-text-secondary mt-1">Remote-first · Working hours spanning North America &amp; EMEA</p>
                   </div>
                 </div>
               </div>
